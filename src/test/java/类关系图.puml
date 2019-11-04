@@ -1,0 +1,23 @@
+@startuml
+skinparam class {
+	BackgroundColor PaleGreen
+	ArrowColor SeaGreen
+	BorderColor SpringGreen
+}
+skinparam stereotypeCBackgroundColor YellowGreen
+
+interface Cigarette
+Oneself -[#0000FF]-  Oneself: 自身关联
+OrderA "1"-->"N" Product:单项关联
+OrderB "N"-- "N" User:双向关联
+Animal <|--  Dog
+Animal <|-- Cat:泛化(Generalization)\n表示is-a的关系\n是对象之间耦合度最大的一种关系\n子类继承父类的所有细节
+Cigarette <|.. ChineseCigarettes:实现（Realization）\n接口和实现的关系
+ Computer<.. Person:依赖(Dependency)
+公司A o--> 员工:聚合(Aggregation)\n表示has-a的关系\n是一种不稳定的包含关系\n公司和员工的关系\n公司包含员工\n但如果公司倒闭\n员工依然可以换公司
+公司B *--> 部门:组合（Composite）\n 表示contains-a的关系\n如公司和部门的关系\n没有了公司\n部门也不能存在了
+
+
+
+
+@enduml

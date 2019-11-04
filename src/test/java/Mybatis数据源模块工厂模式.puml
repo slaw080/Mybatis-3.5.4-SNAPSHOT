@@ -1,0 +1,32 @@
+@startuml
+skinparam class {
+	BackgroundColor PaleGreen
+	ArrowColor SeaGreen
+	BorderColor SpringGreen
+}
+skinparam stereotypeCBackgroundColor YellowGreen
+
+interface DataSourceFactory
+class UnpooledDataSourceFactory
+class UnpooledDataSource
+class PooledDataSourceFactory
+class PooledDataSource
+class PooledConnection
+interface InvocationHandler
+interface Connection
+class PoolState
+
+DataSourceFactory <|..  UnpooledDataSourceFactory
+UnpooledDataSourceFactory *-->  UnpooledDataSource
+UnpooledDataSource o-->  Connection
+UnpooledDataSourceFactory <|-- PooledDataSourceFactory
+PooledDataSourceFactory *-->  PooledDataSource
+PooledDataSource *-->  PoolState
+PooledDataSource *-->  UnpooledDataSource
+PoolState *-->  idleConnections:回收的链接
+PoolState *-->  activeConnections:活跃的链接
+idleConnections *-->  PooledConnection
+activeConnections *-->  PooledConnection
+PooledConnection --|>  InvocationHandler:动态代理增强
+
+@enduml

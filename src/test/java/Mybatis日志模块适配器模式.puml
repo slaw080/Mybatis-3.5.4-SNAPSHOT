@@ -1,0 +1,47 @@
+@startuml
+skinparam class {
+	BackgroundColor PaleGreen
+	ArrowColor SeaGreen
+	BorderColor SpringGreen
+}
+skinparam stereotypeCBackgroundColor YellowGreen
+
+interface Log
+interface Logger1
+interface Logger2
+interface Logger3
+interface Logger4
+interface Logger5
+interface Logger6
+interface Logger7
+
+class LogFactory
+class Slf4jLoggerImpl
+class JakartaCommonsLoggingImpl
+class Log4j2LoggerImpl
+class Log4jImpl
+class Jdk14LoggingImpl
+class StdOutImpl
+class NoLoggingImpl
+
+
+LogFactory *-->Log
+Log <|-- Slf4jLoggerImpl
+Log <|-- JakartaCommonsLoggingImpl
+Log <|-- Log4j2LoggerImpl
+Log <|-- Log4jImpl
+Log <|-- Jdk14LoggingImpl
+Log <|-- StdOutImpl
+Log <|-- NoLoggingImpl
+
+
+
+Slf4jLoggerImpl <--o Logger1
+JakartaCommonsLoggingImpl <--o Logger2
+Log4j2LoggerImpl<--o Logger3
+Log4jImpl <--o Logger4
+Jdk14LoggingImpl <--o Logger5
+StdOutImpl <--o Logger6
+NoLoggingImpl <--o Logger7
+
+@enduml

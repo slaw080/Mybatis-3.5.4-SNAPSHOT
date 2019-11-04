@@ -1,0 +1,18 @@
+@startuml
+skinparam class {
+	BackgroundColor PaleGreen
+	ArrowColor SeaGreen
+	BorderColor SpringGreen
+}
+skinparam stereotypeCBackgroundColor YellowGreen
+
+interface Cache
+
+Cache <|.. PerpetualCache
+Cache <|.. BlockingCache
+BlockingCache *--> PerpetualCache
+Cache <|.. FifoCache
+FifoCache *--> PerpetualCache
+
+
+@enduml
