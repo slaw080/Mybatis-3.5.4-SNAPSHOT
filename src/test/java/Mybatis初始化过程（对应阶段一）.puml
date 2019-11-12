@@ -1,0 +1,50 @@
+@startuml
+activate Main #005500
+Main -> SqlSessionFactoryBuilder: build
+SqlSessionFactoryBuilder -> SqlSessionFactoryBuilder
+activate SqlSessionFactoryBuilder
+SqlSessionFactoryBuilder -> XMLConfigBuilder: build
+activate XMLConfigBuilder #FFBBBB
+XMLConfigBuilder -> XMLConfigBuilder:parseConfiguration
+activate XMLConfigBuilder #DarkSalmon
+XMLConfigBuilder -> XMLConfigBuilder: propertiesElement
+XMLConfigBuilder -> XMLConfigBuilder: typeAliasesElement:as
+XMLConfigBuilder -> XMLConfigBuilder: pluginElement
+XMLConfigBuilder -> XMLConfigBuilder: ...
+XMLConfigBuilder -> XMLConfigBuilder: mapperElement
+activate XMLConfigBuilder #CC00FF
+XMLConfigBuilder -> XMLMapperBuilder: mapperElement.parse()
+deactivate XMLConfigBuilder
+activate XMLMapperBuilder #CC00FF
+XMLMapperBuilder -> XMLMapperBuilder: configurationElement
+activate XMLMapperBuilder #9400D3
+XMLMapperBuilder -> XMLMapperBuilder: cacheRefElement(context.evalNode("cache-ref"));
+XMLMapperBuilder -> XMLMapperBuilder: cacheElement(context.evalNode("cache"));
+activate XMLMapperBuilder #0000FF
+XMLMapperBuilder -> MapperBuilderAssistant: useNewCache,这里使用装饰器模式创建缓存对象
+deactivate XMLMapperBuilder
+MapperBuilderAssistant -> Configuration:addCache,nameSpace作为key存入Map中
+XMLMapperBuilder -> XMLMapperBuilder: parameterMapElement(context.evalNodes("/mapper/parameterMap"));已废弃
+XMLMapperBuilder -> XMLMapperBuilder: resultMapElements(context.evalNodes("/mapper/resultMap"));
+XMLMapperBuilder -> XMLMapperBuilder: sqlElement(context.evalNodes("/mapper/sql"));
+XMLMapperBuilder -> XMLMapperBuilder: buildStatementFromContext(context.evalNodes("select|insert|update|delete"));
+activate XMLMapperBuilder #FFFF00
+XMLMapperBuilder -> XMLStatementBuilder: parseStatementNode
+deactivate XMLMapperBuilder
+activate XMLStatementBuilder #FFFF00
+XMLStatementBuilder -> MapperBuilderAssistant: addMappedStatement，MappedStatement中封装了SQL的包装类:SqlSource
+MapperBuilderAssistant -> Configuration: mappedStatements.put(ms.getId(), ms);注意此处的id即 namespace
+deactivate XMLStatementBuilder
+XMLMapperBuilder -> XMLConfigBuilder: return
+XMLConfigBuilder -> SqlSessionFactoryBuilder: return
+SqlSessionFactoryBuilder -> Main: return
+
+
+
+deactivate XMLMapperBuilder
+deactivate XMLMapperBuilder
+deactivate XMLConfigBuilder
+deactivate XMLConfigBuilder
+deactivate SqlSessionFactoryBuilder
+deactivate Main
+@enduml
