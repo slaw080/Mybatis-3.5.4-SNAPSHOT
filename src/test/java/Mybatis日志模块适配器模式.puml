@@ -34,8 +34,6 @@ Log <|-- Jdk14LoggingImpl
 Log <|-- StdOutImpl
 Log <|-- NoLoggingImpl
 
-
-
 Slf4jLoggerImpl <--o Logger1
 JakartaCommonsLoggingImpl <--o Logger2
 Log4j2LoggerImpl<--o Logger3
@@ -43,5 +41,4 @@ Log4jImpl <--o Logger4
 Jdk14LoggingImpl <--o Logger5
 StdOutImpl <--o Logger6
 NoLoggingImpl <--o Logger7
-
 @enduml

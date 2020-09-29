@@ -118,10 +118,10 @@ public class XMLMapperBuilder extends BaseBuilder {
       //解析cache-ref节点
       cacheRefElement(context.evalNode("cache-ref"));
       //重点分析 ：解析cache节点----------------1-------------------
-      //      cacheElement(context.evalNode("cache"));
-      //      //解析parameterMap节点（已废弃）
-      //      parameterMapElement(context.evalNodes("/mapper/parameterMap"));
-      //      //重点分析 ：解析resultMap节点（基于数据结果去理解）----------------2-------------------
+      cacheElement(context.evalNode("cache"));
+      //解析parameterMap节点（已废弃）
+      parameterMapElement(context.evalNodes("/mapper/parameterMap"));
+      //重点分析 ：解析resultMap节点（基于数据结果去理解）----------------2-------------------
       resultMapElements(context.evalNodes("/mapper/resultMap"));
       //解析sql节点
       sqlElement(context.evalNodes("/mapper/sql"));
